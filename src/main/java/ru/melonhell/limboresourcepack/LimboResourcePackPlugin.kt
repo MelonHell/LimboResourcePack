@@ -50,10 +50,12 @@ class LimboResourcePackPlugin @Inject constructor(
 
     @Subscribe
     fun onProxyInitialization(event: ProxyInitializeEvent) {
-        config.reload(configFile)
+        reloadConfig()
 
         serializer = config.SERIALIZER.serializer!!
 
+        val manager = this.server.commandManager
+        manager.register("lr", LimboResourcePackCommand(this))
         val world = factory.createVirtualWorld(Dimension.THE_END, 0.0, 100.0, 0.0, 90f, 0f)
         limbo = factory.createLimbo(world)
     }
@@ -66,6 +68,10 @@ class LimboResourcePackPlugin @Inject constructor(
             map[player] = handler
             limbo.spawnPlayer(player, handler)
         }
+    }
+
+    fun reloadConfig() {
+        config.reload(configFile)
     }
 
     fun sendResourcePack(player: Player) {
@@ -81,8 +87,12 @@ class LimboResourcePackPlugin @Inject constructor(
         logger.info("Игрок ${player.username} отправил статус респака ${status.name}")
         when (status) {
             Status.SUCCESSFUL -> map.remove(player)?.disconnectLimbo()
-            Status.DECLINED, Status.FAILED_DOWNLOAD -> {
-                if (config.RP_FORCE) player.disconnect(serializer.deserialize(config.RP_FAILURE_KICK_MESSAGE))
+            Status.DECLINED -> {
+                if (config.KICK_IF_FAILURE) player.disconnect(serializer.deserialize(config.RP_FAILURE_KICK_MESSAGE))
+                else map.remove(player)?.disconnectLimbo()
+            }
+            Status.FAILED_DOWNLOAD -> {
+                if (config.KICK_IF_DECLINED) player.disconnect(serializer.deserialize(config.RP_DECLINED_KICK_MESSAGE))
                 else map.remove(player)?.disconnectLimbo()
             }
 

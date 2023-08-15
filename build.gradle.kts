@@ -15,10 +15,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.velocitypowered:velocity-api:3.2.0-SNAPSHOT")
+    compileOnly("com.velocitypowered:velocity-api:3.1.1")
     compileOnly("com.velocitypowered:velocity-proxy:3.2.0-SNAPSHOT")
-    kapt("com.velocitypowered:velocity-api:3.2.0-SNAPSHOT")
-    compileOnly("net.elytrium.limboapi:api:1.1.6")
+    kapt("com.velocitypowered:velocity-api:3.1.1")
+    compileOnly("net.elytrium.limboapi:api:1.1.16")
 }
 
 tasks {
@@ -31,4 +31,16 @@ tasks {
     }
     assemble.get().dependsOn(shadowJar)
     jar.get().enabled = false
+}
+
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+}
+
+tasks.withType<Test> {
+    systemProperty("file.encoding", "UTF-8")
+}
+
+tasks.withType<Javadoc>{
+    options.encoding = "UTF-8"
 }
