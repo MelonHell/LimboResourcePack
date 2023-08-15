@@ -24,6 +24,15 @@ public class Config extends YamlConfig {
     @Comment("Если ошибка то кикает с этим текстом")
     public String RP_FAILURE_KICK_MESSAGE = "Произошла ошибка при загрузке пакета ресурсов.<br>Попробуй ещё раз.";
 
-    @Comment("Не пускать чела на серв без респака")
+    @Comment("Если юзверь отклонил рп то кикает с этим текстом")
+    public String RP_DECLINED_KICK_MESSAGE = "Прими рп<br>(если не отклонял ничё то нажми на серв, потом редактировать и пакеты ресурсов разреши)";
+
+    @Comment("Не пускать чела на серв без респака (Клиентская фича, по идее можно обойти читом)")
     public boolean RP_FORCE = true;
+
+    @Comment("Кикнуть если отклонил")
+    public boolean KICK_IF_DECLINED = true;
+
+    @Comment("Кикнуть при ошибке")
+    public boolean KICK_IF_FAILURE = true;
 }
