@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "ru.melonhell"
-version = "1.0-SNAPSHOT"
+version = "1.1"
 
 repositories {
     mavenCentral()
@@ -15,10 +15,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly("com.velocitypowered:velocity-api:3.1.1")
-    compileOnly("com.velocitypowered:velocity-proxy:3.2.0-SNAPSHOT")
-    kapt("com.velocitypowered:velocity-api:3.1.1")
-    compileOnly("net.elytrium.limboapi:api:1.1.16")
+    compileOnly("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
+    compileOnly("com.velocitypowered:velocity-proxy:3.3.0-SNAPSHOT")
+    kapt("com.velocitypowered:velocity-api:3.3.0-SNAPSHOT")
+    compileOnly("net.elytrium.limboapi:api:1.1.26")
 }
 
 tasks {
