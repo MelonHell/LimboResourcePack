@@ -1,6 +1,6 @@
 package ru.melonhell.limboresourcepack
 
-import com.velocitypowered.proxy.protocol.packet.ResourcePackResponse
+import com.velocitypowered.proxy.protocol.packet.ResourcePackResponsePacket
 import net.elytrium.limboapi.api.Limbo
 import net.elytrium.limboapi.api.LimboSessionHandler
 import net.elytrium.limboapi.api.player.LimboPlayer
@@ -20,7 +20,7 @@ class RpLimboHandler(
     }
 
     override fun onGeneric(packet: Any) {
-        if (packet is ResourcePackResponse) {
+        if (packet is ResourcePackResponsePacket) {
             plugin.onPlayerResourceStatus(player.proxyPlayer, packet.status)
         }
     }
